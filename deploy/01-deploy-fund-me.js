@@ -21,6 +21,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     from: deployer,
     args: [ethUsdPriceFeedAddress],
     log: true,
+    // we need to wait if on a live network so we can verify properly
     waitConfirmations: network.config.blockConfirmations || 0,
   })
   log(`FundMe deployed at ${fundMe.address}`)
