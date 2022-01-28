@@ -15,6 +15,7 @@ Video Coming soon...
   - [Testing](#testing)
     - [Test Coverage](#test-coverage)
 - [Deployment to a testnet or mainnet](#deployment-to-a-testnet-or-mainnet)
+  - [Scripts](#scripts)
   - [Estimate gas](#estimate-gas)
     - [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
   - [Verify on etherscan](#verify-on-etherscan)
@@ -78,6 +79,7 @@ npx hardhat test
 npx hardhat coverage
 ```
 
+
 # Deployment to a testnet or mainnet
 
 1. Setup environment variabltes
@@ -96,6 +98,19 @@ Head over to [faucets.chain.link](https://faucets.chain.link/) and get some tesn
 
 ```
 npx hardhat deploy --network kovan
+```
+
+## Scripts
+
+After deploy to a testnet or local net, you can run the scripts. 
+
+```
+npx hardhat run scripts/fund.js
+```
+
+or
+```
+npx hardhat run scripts/withdraw.js
 ```
 
 ## Estimate gas
