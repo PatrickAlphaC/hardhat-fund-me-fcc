@@ -7,6 +7,7 @@ import "hardhat-deploy"
 import "solidity-coverage"
 import "@typechain/hardhat"
 import "@nomiclabs/hardhat-ethers"
+import { HardhatUserConfig } from "hardhat/config"
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
@@ -23,7 +24,7 @@ const PRIVATE_KEY =
   "0x11ee3108a03081fe260ecdc106554d09d9d1209bcafd46942b10e02943effc4a"
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || ""
 
-module.exports = {
+const config: HardhatUserConfig = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
@@ -35,6 +36,7 @@ module.exports = {
       accounts: [PRIVATE_KEY],
       chainId: 42,
       blockConfirmations: 6,
+      ethUsdPriceFeed: "0x9326BFA02ADD2366b30bacB125260Af641031331",
     },
   },
   solidity: {
@@ -64,3 +66,5 @@ module.exports = {
     },
   },
 }
+
+export default config
