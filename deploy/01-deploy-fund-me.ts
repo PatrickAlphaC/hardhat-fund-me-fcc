@@ -1,8 +1,14 @@
+import { HardhatRuntimeEnvironment } from "hardhat/types"
+import { DeployFunction } from "hardhat-deploy/types"
+import { verify } from "../deploy-helpers/verify"
+
 const { getNamedAccounts, deployments, network } = require("hardhat")
 const { networkConfig, developmentChains } = require("../helper-hardhat-config")
-const { verify } = require("../deploy-helpers/verify")
 
-module.exports = async ({ getNamedAccounts, deployments }) => {
+const deployFundMe: DeployFunction = async function (
+  hre: HardhatRuntimeEnvironment
+) {
+  const { getNamedAccounts, deployments, network } = hre
   const { deploy, log } = deployments
   const { deployer } = await getNamedAccounts()
   const chainId = network.config.chainId
