@@ -1,4 +1,4 @@
-# Hardhat Fund Me
+# Hardhat Fund Me - Typescript Edition
 
 This is a section of the Javascript Blockchain/Smart Contract FreeCodeCamp Course.
 
@@ -6,7 +6,7 @@ Video Coming soon...
 
 [Full Repo](https://github.com/smartcontractkit/full-blockchain-solidity-course-js)
 
-- [Hardhat Fund Me](#hardhat-fund-me)
+- [Hardhat Fund Me - Typescript Edition](#hardhat-fund-me---typescript-edition)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
@@ -19,6 +19,7 @@ Video Coming soon...
   - [Estimate gas](#estimate-gas)
     - [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
   - [Verify on etherscan](#verify-on-etherscan)
+    - [Typescript differences](#typescript-differences)
 - [Thank you!](#thank-you)
 
 This project is apart of the Hardhat FreeCodeCamp video.
@@ -43,7 +44,7 @@ Video coming soon...
 ## Quickstart
 
 ```
-git clone https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
+git clone --branch typescript https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
 cd hardhat-fund-me-fcc
 npm install
 ```
@@ -52,7 +53,7 @@ npm install
 
 ## Typescript
 
-For the typescript edition, run:
+If you want to get to typescript and you cloned the javascript version, just run:
 
 ```
 git checkout typescript
@@ -141,6 +142,16 @@ However, you can manual verify with:
 ```
 npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ```
+
+### Typescript differences
+1. `.js` files are now `.ts`
+2. We added a bunch of typescript and typing packages to our `package.json`. They can be installed with:
+   1. `npm install @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node ts-node typechain typescript`
+3. The biggest one being [typechain](https://github.com/dethcrypto/TypeChain)
+   1. This gives your contracts static typing, meaning you'll always know exactly what functions a contract can call. 
+   2. This gives us `factories` that are specific to the contracts they are factories of. See the tests folder for a version of how this is implemented. 
+4. We use `imports` instead of `require`. Confusing to you? [Watch this video](https://www.youtube.com/watch?v=mK54Cn4ceac)
+5. Add `tsconfig.json`
 
 
 # Thank you!

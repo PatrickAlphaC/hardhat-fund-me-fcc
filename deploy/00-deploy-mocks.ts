@@ -1,4 +1,5 @@
-const { getNamedAccounts, deployments, network } = require("hardhat")
+import { HardhatRuntimeEnvironment } from "hardhat/types"
+import { getNamedAccounts, deployments, network } from "hardhat"
 
 const DECIMALS = "18"
 const INITIAL_PRICE = "2000000000000000000000" // 2000

@@ -1,4 +1,5 @@
-const { ethers, getNamedAccounts } = require("hardhat")
+// import { ethers, getNamedAccounts } from "hardhat"
+import { ethers, run, network } from "hardhat"
 
 async function main() {
   const { deployer } = await getNamedAccounts()

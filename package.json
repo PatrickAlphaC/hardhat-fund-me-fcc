@@ -19,6 +19,8 @@
   },
   "scripts": {
     "lint": "npx prettier --check .",
-    "lint:fix": "npx prettier --write ."
+    "lint:fix": "npx prettier --write .",
+    "typechain": "npx typechain",
+    "ci:clean": "rm -rf ./artifacts ./cache .;types"
   }
 }
