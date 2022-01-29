@@ -9,3 +9,4 @@ cache
 artifacts
 .DS_Store
 gas-report.txt
+deployments

@@ -1,5 +1,5 @@
 const { assert, expect } = require("chai")
-const { network, deployments, ethers, getNamedAccounts } = require("hardhat")
+const { network, deployments, ethers } = require("hardhat")
 const { developmentChains } = require("../../helper-hardhat-config")
 
 describe("FundMe", async () => {
@@ -10,7 +10,8 @@ describe("FundMe", async () => {
     if (!developmentChains.includes(network.name)) {
       throw "You need to be on a development chain to run tests"
     }
-    deployer = (await getNamedAccounts()).deployer
+    accounts = await ethers.getSigners()
+    deployer = accounts[0]
     await deployments.fixture(["all"])
     fundMe = await ethers.getContract("FundMe", deployer)
     mockV3Aggregator = await ethers.getContract("MockV3Aggregator", deployer)
@@ -35,13 +36,13 @@ describe("FundMe", async () => {
     // but this is good enough for now
     it("Updates the amount funded data structure", async () => {
       await fundMe.fund({ value: ethers.utils.parseEther("1") })
-      const response = await fundMe.s_addressToAmountFunded(deployer)
+      const response = await fundMe.s_addressToAmountFunded(deployer.address)
       assert.equal(response.toString(), ethers.utils.parseEther("1").toString())
     })
     it("Adds funder to array of funders", async () => {
       await fundMe.fund({ value: ethers.utils.parseEther("1") })
       const response = await fundMe.s_funders(0)
-      assert.equal(response, deployer)
+      assert.equal(response, deployer.address)
     })
   })
   describe("withdraw", () => {
@@ -53,7 +54,9 @@ describe("FundMe", async () => {
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
       )
-      const startingDeployerBalance = await fundMe.provider.getBalance(deployer)
+      const startingDeployerBalance = await fundMe.provider.getBalance(
+        deployer.address
+      )
 
       // Act
       const transactionResponse = await fundMe.withdraw()
@@ -64,7 +67,9 @@ describe("FundMe", async () => {
       const endingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
       )
-      const endingDeployerBalance = await fundMe.provider.getBalance(deployer)
+      const endingDeployerBalance = await fundMe.provider.getBalance(
+        deployer.address
+      )
 
       // Assert
       assert.equal(endingFundMeBalance, 0)
@@ -97,7 +102,9 @@ describe("FundMe", async () => {
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
       )
-      const startingDeployerBalance = await fundMe.provider.getBalance(deployer)
+      const startingDeployerBalance = await fundMe.provider.getBalance(
+        deployer.address
+      )
       const transactionResponse = await fundMe.cheaperWithdraw()
       // Let's comapre gas costs :)
       // const transactionResponse = await fundMe.withdraw()
@@ -110,7 +117,9 @@ describe("FundMe", async () => {
       const endingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
       )
-      const endingDeployerBalance = await fundMe.provider.getBalance(deployer)
+      const endingDeployerBalance = await fundMe.provider.getBalance(
+        deployer.address
+      )
       // Assert
       assert.equal(
         startingFundMeBalance.add(startingDeployerBalance).toString(),

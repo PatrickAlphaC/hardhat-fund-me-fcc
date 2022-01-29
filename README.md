@@ -19,6 +19,7 @@ Video Coming soon...
   - [Estimate gas](#estimate-gas)
     - [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
   - [Verify on etherscan](#verify-on-etherscan)
+- [Linting](#linting)
 - [Thank you!](#thank-you)
 
 This project is apart of the Hardhat FreeCodeCamp video.
@@ -29,26 +30,24 @@ Video coming soon...
 
 ## Requirements
 
-- [Nodejs & npm](https://nodejs.org/en/)
+- [Nodejs](https://nodejs.org/en/)
   - You'll know you've installed nodejs right if you can run:
     - `node --version`
     - And get an ouput like:
     - `vx.x.x`
-  - You'll know you've installed npm right if you can run:
-    - `npm --version`
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
+  - You'll know you've installed yarn right if you can run:
+    - `yarn --version`
     - And get an ouput like:
-    - `x.x.x`
-- Optional [yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
+    - `vx.x.x`
 
 ## Quickstart
 
 ```
 git clone https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
 cd hardhat-fund-me-fcc
-npm install
+yarn
 ```
-
-**Note: If you delete `package-lock.json` it won't install correctly with just `package.json`. You'll need to remove the line with `@nomiclabs/hardhat-ethers` from `package.json`, and then reinstall it with `npm install --save-dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers`. [Read more here](https://github.com/wighawag/hardhat-deploy-ethers#installation)**
 
 ## Typescript
 
@@ -140,6 +139,17 @@ However, you can manual verify with:
 
 ```
 npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
+```
+
+# Linting
+
+To check linting / code formatting:
+```
+yarn lint
+```
+or, to fix: 
+```
+yarn lint:fix
 ```
 
 
