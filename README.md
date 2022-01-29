@@ -20,6 +20,7 @@ Video Coming soon...
     - [Estimate gas cost in USD](#estimate-gas-cost-in-usd)
   - [Verify on etherscan](#verify-on-etherscan)
     - [Typescript differences](#typescript-differences)
+- [Linting](#linting)
 - [Thank you!](#thank-you)
 
 This project is apart of the Hardhat FreeCodeCamp video.
@@ -30,16 +31,22 @@ Video coming soon...
 
 ## Requirements
 
-- [Nodejs](https://nodejs.org/en/)
+- [Nodejs & npx](https://nodejs.org/en/)
   - You'll know you've installed nodejs right if you can run:
     - `node --version`
     - And get an ouput like:
     - `vx.x.x`
+  - You'll know you've installed nodejs right if you can run:
+    - `npx --version`
+    - And get an ouput like:
+    - `x.x.x`
+    - You might need to install it with npm
 - [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
   - You'll know you've installed yarn right if you can run:
     - `yarn --version`
     - And get an output like:
     - `x.x.x`
+    - You might need to install it with npm
 
 ## Quickstart
 
@@ -47,6 +54,7 @@ Video coming soon...
 git clone --branch typescript https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
 cd hardhat-fund-me-fcc
 yarn
+yarn typechain
 ```
 
 ## Typescript
@@ -151,6 +159,16 @@ npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 4. We use `imports` instead of `require`. Confusing to you? [Watch this video](https://www.youtube.com/watch?v=mK54Cn4ceac)
 5. Add `tsconfig.json`
 
+# Linting
+
+To check linting / code formatting:
+```
+yarn lint
+```
+or, to fix: 
+```
+yarn lint:fix
+```
 
 # Thank you!
 
