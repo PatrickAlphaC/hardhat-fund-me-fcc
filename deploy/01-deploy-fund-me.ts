@@ -1,7 +1,6 @@
 import { HardhatRuntimeEnvironment } from "hardhat/types"
 import { DeployFunction } from "hardhat-deploy/types"
 import verify from "../deploy-helpers/verify"
-
 import { networkConfig, developmentChains } from "../helper-hardhat-config"
 
 const deployFundMe: DeployFunction = async function (
@@ -12,15 +11,12 @@ const deployFundMe: DeployFunction = async function (
   const { deployer } = await getNamedAccounts()
   const chainId: number = network.config.chainId!
 
-  let ethUsdPriceFeedAddress: any
+  let ethUsdPriceFeedAddress: string
   if (chainId == 31337) {
     const ethUsdAggregator = await deployments.get("MockV3Aggregator")
     ethUsdPriceFeedAddress = ethUsdAggregator.address
   } else {
-    // ethUsdPriceFeedAddress = networkConfig[chainId!].ethUsdPriceFeed
-    const fourty = 42
-    ethUsdPriceFeedAddress = networkConfig[chainId!]
-    // ethUsdPriceFeedAddress = network.config.ethUsdPriceFeed
+    ethUsdPriceFeedAddress = networkConfig[network.name].ethUsdPriceFeed!
   }
   log("----------------------------------------------------")
   log("Deploying FundMe and waiting for confirmations...")
@@ -29,10 +25,9 @@ const deployFundMe: DeployFunction = async function (
     args: [ethUsdPriceFeedAddress],
     log: true,
     // we need to wait if on a live network so we can verify properly
-    waitConfirmations: network.config.blockConfirmations || 0,
+    waitConfirmations: networkConfig[network.name].blockConfirmations || 0,
   })
   log(`FundMe deployed at ${fundMe.address}`)
-
   if (
     !developmentChains.includes(network.name) &&
     process.env.ETHERSCAN_API_KEY
@@ -40,5 +35,5 @@ const deployFundMe: DeployFunction = async function (
     await verify(fundMe.address, [ethUsdPriceFeedAddress])
   }
 }
-
-module.exports.tags = ["all", "fundMe"]
+export default deployFundMe
+deployFundMe.tags = ["all", "fundMe"]

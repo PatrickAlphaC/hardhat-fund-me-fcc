@@ -30,26 +30,24 @@ Video coming soon...
 
 ## Requirements
 
-- [Nodejs & npm](https://nodejs.org/en/)
+- [Nodejs](https://nodejs.org/en/)
   - You'll know you've installed nodejs right if you can run:
     - `node --version`
     - And get an ouput like:
     - `vx.x.x`
-  - You'll know you've installed npm right if you can run:
-    - `npm --version`
-    - And get an ouput like:
+- [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
+  - You'll know you've installed yarn right if you can run:
+    - `yarn --version`
+    - And get an output like:
     - `x.x.x`
-- Optional [yarn](https://classic.yarnpkg.com/lang/en/docs/install/) instead of `npm`
 
 ## Quickstart
 
 ```
 git clone --branch typescript https://github.com/PatrickAlphaC/hardhat-fund-me-fcc
 cd hardhat-fund-me-fcc
-npm install
+yarn
 ```
-
-**Note: If you delete `package-lock.json` it won't install correctly with just `package.json`. You'll need to remove the line with `@nomiclabs/hardhat-ethers` from `package.json`, and then reinstall it with `npm install --save-dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers`. [Read more here](https://github.com/wighawag/hardhat-deploy-ethers#installation)**
 
 ## Typescript
 
@@ -146,7 +144,7 @@ npx hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 ### Typescript differences
 1. `.js` files are now `.ts`
 2. We added a bunch of typescript and typing packages to our `package.json`. They can be installed with:
-   1. `npm install @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node ts-node typechain typescript`
+   1. `yarn add @typechain/ethers-v5 @typechain/hardhat @types/chai @types/node ts-node typechain typescript`
 3. The biggest one being [typechain](https://github.com/dethcrypto/TypeChain)
    1. This gives your contracts static typing, meaning you'll always know exactly what functions a contract can call. 
    2. This gives us `factories` that are specific to the contracts they are factories of. See the tests folder for a version of how this is implemented. 

@@ -1,12 +1,12 @@
+import "@typechain/hardhat"
 import "@nomiclabs/hardhat-waffle"
-import "hardhat-gas-reporter"
 import "@nomiclabs/hardhat-etherscan"
+import "@nomiclabs/hardhat-ethers"
+import "hardhat-gas-reporter"
 import "dotenv/config"
 import "solidity-coverage"
 import "hardhat-deploy"
 import "solidity-coverage"
-import "@typechain/hardhat"
-import "@nomiclabs/hardhat-ethers"
 import { HardhatUserConfig } from "hardhat/config"
 
 // You need to export an object to set up your config
@@ -35,8 +35,6 @@ const config: HardhatUserConfig = {
       url: KOVAN_RPC_URL,
       accounts: [PRIVATE_KEY],
       chainId: 42,
-      blockConfirmations: 6,
-      ethUsdPriceFeed: "0x9326BFA02ADD2366b30bacB125260Af641031331",
     },
   },
   solidity: {

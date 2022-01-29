@@ -1,12 +1,18 @@
-import { ethers, getNamedAccounts } from "hardhat"
+import { ethers, getNamedAccounts, deployments } from "hardhat"
 
 async function main() {
   const { deployer } = await getNamedAccounts()
+  // const fundMeDeployment = await deployments.get("fundMe")
+  // const fundMe = await ethers.getContractAt(
+  //   "FundMe",
+  //   fundMeDeployment.address,
+  //   deployer
+  // )
   const fundMe = await ethers.getContract("FundMe", deployer)
   console.log(`Got contract FundMe at ${fundMe.address}`)
   console.log("Funding contract...")
   const transactionResponse = await fundMe.fund({
-    value: ethers.utils.parseEther("0.1"),
+    value: ethers.utils.parseEther("0.05"),
   })
   await transactionResponse.wait()
   console.log("Funded!")
