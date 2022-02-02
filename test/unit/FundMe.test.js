@@ -6,10 +6,11 @@ describe("FundMe", async () => {
   let fundMe
   let mockV3Aggregator
   let deployer
+  const sendValue = ethers.utils.parseEther("0.777")
   beforeEach(async () => {
-    if (!developmentChains.includes(network.name)) {
-      throw "You need to be on a development chain to run tests"
-    }
+    // if (!developmentChains.includes(network.name)) {
+    //   throw "You need to be on a development chain to run tests"
+    //
     accounts = await ethers.getSigners()
     deployer = accounts[0]
     await deployments.fixture(["all"])
@@ -19,7 +20,7 @@ describe("FundMe", async () => {
 
   describe("constructor", () => {
     it("sets the aggregator addresses correctly", async () => {
-      const response = await fundMe.s_priceFeed()
+      const response = await fundMe.getPriceFeed()
       assert.equal(response, mockV3Aggregator.address)
     })
   })
@@ -35,21 +36,21 @@ describe("FundMe", async () => {
     // we could be even more precise here by making sure exactly $50 works
     // but this is good enough for now
     it("Updates the amount funded data structure", async () => {
-      await fundMe.fund({ value: ethers.utils.parseEther("1") })
-      const response = await fundMe.s_addressToAmountFunded(deployer.address)
-      assert.equal(response.toString(), ethers.utils.parseEther("1").toString())
+      await fundMe.fund({ value: sendValue })
+      const response = await fundMe.getAddressToAmountFunded(deployer.address)
+      assert.equal(response.toString(), sendValue.toString())
     })
     it("Adds funder to array of funders", async () => {
-      await fundMe.fund({ value: ethers.utils.parseEther("1") })
-      const response = await fundMe.s_funders(0)
+      await fundMe.fund({ value: sendValue })
+      const response = await fundMe.getFunder(0)
       assert.equal(response, deployer.address)
     })
   })
   describe("withdraw", () => {
     beforeEach(async () => {
-      await fundMe.fund({ value: ethers.utils.parseEther("1") })
+      await fundMe.fund({ value: sendValue })
     })
-    it("gives a single funder all their ETH back", async () => {
+    it("withdraws ETH from a single funder", async () => {
       // Arrange
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
@@ -72,6 +73,7 @@ describe("FundMe", async () => {
       )
 
       // Assert
+      // Maybe clean up to understand the testing
       assert.equal(endingFundMeBalance, 0)
       assert.equal(
         startingFundMeBalance.add(startingDeployerBalance).toString(),
@@ -83,21 +85,9 @@ describe("FundMe", async () => {
     it("is allows us to withdraw with multiple funders", async () => {
       // Arrange
       accounts = await ethers.getSigners()
-      await fundMe
-        .connect(accounts[1])
-        .fund({ value: ethers.utils.parseEther("1") })
-      await fundMe
-        .connect(accounts[2])
-        .fund({ value: ethers.utils.parseEther("1") })
-      await fundMe
-        .connect(accounts[3])
-        .fund({ value: ethers.utils.parseEther("1") })
-      await fundMe
-        .connect(accounts[4])
-        .fund({ value: ethers.utils.parseEther("1") })
-      await fundMe
-        .connect(accounts[5])
-        .fund({ value: ethers.utils.parseEther("1") })
+      for (i = 1; i < 6; i++) {
+        await fundMe.connect(accounts[i]).fund({ value: sendValue })
+      }
       // Act
       const startingFundMeBalance = await fundMe.provider.getBalance(
         fundMe.address
@@ -125,12 +115,15 @@ describe("FundMe", async () => {
         startingFundMeBalance.add(startingDeployerBalance).toString(),
         endingDeployerBalance.add(withdrawGasCost).toString()
       )
-      await expect(fundMe.s_funders(0)).to.be.reverted
-      assert.equal(await fundMe.s_addressToAmountFunded(accounts[1].address), 0)
-      assert.equal(await fundMe.s_addressToAmountFunded(accounts[2].address), 0)
-      assert.equal(await fundMe.s_addressToAmountFunded(accounts[3].address), 0)
-      assert.equal(await fundMe.s_addressToAmountFunded(accounts[4].address), 0)
-      assert.equal(await fundMe.s_addressToAmountFunded(accounts[5].address), 0)
+      // Make a getter for storage variables
+      await expect(fundMe.getFunder(0)).to.be.reverted
+
+      for (i = 1; i < 6; i++) {
+        assert.equal(
+          await fundMe.getAddressToAmountFunded(accounts[i].address),
+          0
+        )
+      }
     })
   })
 })

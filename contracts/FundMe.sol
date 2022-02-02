@@ -6,11 +6,13 @@ import "./PriceConverter.sol";
 
 contract FundMe {
   using PriceConverter for uint256;
+  // Constants are in the contract bytecode
+  uint256 public constant MINIMUM_USD = 50 * 10**18;
 
-  mapping(address => uint256) public s_addressToAmountFunded;
-  address[] public s_funders;
-  address public s_owner;
-  AggregatorV3Interface public s_priceFeed;
+  mapping(address => uint256) private s_addressToAmountFunded;
+  address[] private s_funders;
+  address private s_owner;
+  AggregatorV3Interface private s_priceFeed;
 
   constructor(address priceFeed) {
     s_priceFeed = AggregatorV3Interface(priceFeed);
@@ -18,12 +20,11 @@ contract FundMe {
   }
 
   function fund() public payable {
-    uint256 minimumUSD = 50 * 10**18;
     require(
-      msg.value.getConversionRate(s_priceFeed) >= minimumUSD,
+      msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
       "You need to spend more ETH!"
     );
-    // require(PriceConverter.getConversionRate(msg.value) >= minimumUSD, "You need to spend more ETH!");
+    // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
     s_addressToAmountFunded[msg.sender] += msg.value;
     s_funders.push(msg.sender);
   }
@@ -38,7 +39,6 @@ contract FundMe {
   }
 
   function withdraw() public payable onlyOwner {
-    payable(msg.sender).transfer(address(this).balance);
     for (
       uint256 funderIndex = 0;
       funderIndex < s_funders.length;
@@ -48,10 +48,13 @@ contract FundMe {
       s_addressToAmountFunded[funder] = 0;
     }
     s_funders = new address[](0);
+    // Transfer vs call vs Send
+    // payable(msg.sender).transfer(address(this).balance);
+    (bool success, ) = s_owner.call{value: address(this).balance}("");
+    require(success);
   }
 
   function cheaperWithdraw() public payable onlyOwner {
-    payable(msg.sender).transfer(address(this).balance);
     address[] memory funders = s_funders;
     // mappings can't be in memory, sorry!
     for (uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
@@ -59,5 +62,29 @@ contract FundMe {
       s_addressToAmountFunded[funder] = 0;
     }
     s_funders = new address[](0);
+    // payable(msg.sender).transfer(address(this).balance);
+    (bool success, ) = s_owner.call{value: address(this).balance}("");
+    require(success);
+  }
+
+  // Maybe save this for the next one?
+  function getAddressToAmountFunded(address fundingAddress)
+    public
+    view
+    returns (uint256)
+  {
+    return s_addressToAmountFunded[fundingAddress];
+  }
+
+  function getFunder(uint256 index) public view returns (address) {
+    return s_funders[index];
+  }
+
+  function getOwner() public view returns (address) {
+    return s_owner;
+  }
+
+  function getPriceFeed() public view returns (AggregatorV3Interface) {
+    return s_priceFeed;
   }
 }

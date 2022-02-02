@@ -1,3 +1,8 @@
+# TODO
+
+1. Figure out if we want to have this one the next project be the "good" code.
+2. Update tests for testnet, either using mocha invert, the "runtests" flag, or the `yarn test` way. 
+
 # Hardhat Fund Me
 
 This is a section of the Javascript Blockchain/Smart Contract FreeCodeCamp Course.
@@ -6,6 +11,7 @@ Video Coming soon...
 
 [Full Repo](https://github.com/smartcontractkit/full-blockchain-solidity-course-js)
 
+- [TODO](#todo)
 - [Hardhat Fund Me](#hardhat-fund-me)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)

@@ -10,3 +10,6 @@ artifacts
 .DS_Store
 gas-report.txt
 deployments
+
+# Patrick
+.notes.md
