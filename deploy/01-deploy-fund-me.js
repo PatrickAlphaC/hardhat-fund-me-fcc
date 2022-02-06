@@ -13,7 +13,6 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     ethUsdPriceFeedAddress = ethUsdAggregator.address
   } else {
     ethUsdPriceFeedAddress = networkConfig[chainId]["ethUsdPriceFeed"]
-    // ethUsdPriceFeedAddress = network.config.ethUsdPriceFeed
   }
   log("----------------------------------------------------")
   log("Deploying FundMe and waiting for confirmations...")
@@ -22,7 +21,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     args: [ethUsdPriceFeedAddress],
     log: true,
     // we need to wait if on a live network so we can verify properly
-    waitConfirmations: network.config.blockConfirmations || 0,
+    waitConfirmations: network.config.blockConfirmations || 1,
   })
   log(`FundMe deployed at ${fundMe.address}`)
 
