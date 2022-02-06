@@ -72,7 +72,7 @@ git checkout typescript
 ```
 
 
-# Useage
+# Usage
 
 Deploy:
 
