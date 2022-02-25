@@ -12,9 +12,7 @@
     "hardhat-deploy": "^0.9.29",
     "hardhat-gas-reporter": "^1.0.7",
     "solidity-coverage": "^0.7.18",
-    "typechain": "^7.0.0"
-  },
-  "dependencies": {
+    "typechain": "^7.0.0",
     "@chainlink/contracts": "^0.3.1",
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
     "@types/chai": "^4.3.0",

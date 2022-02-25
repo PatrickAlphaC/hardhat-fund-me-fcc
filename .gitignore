@@ -9,4 +9,5 @@ cache
 artifacts
 .DS_Store
 gas-report.txt
+.notes.md
 deployments

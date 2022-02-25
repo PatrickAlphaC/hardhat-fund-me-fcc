@@ -18,4 +18,7 @@ export const networkConfig: networkConfigInfo = {
   },
 }
 
+export const frontEndContractsFile =
+  "../nextjs-smartcontract-lottery-fcc/constants/contractAddresses.json"
+
 export const developmentChains = ["hardhat", "localhost"]
