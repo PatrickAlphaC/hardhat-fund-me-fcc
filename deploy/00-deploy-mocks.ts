@@ -20,14 +20,14 @@ const deployMocks: DeployFunction = async function (
       args: [DECIMALS, INITIAL_PRICE],
     })
     log("Mocks Deployed!")
-    log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    log("----------------------------------")
     log(
       "You are deploying to a local network, you'll need a local network running to interact"
     )
     log(
-      "Please run `npx hardhat console` to interact with the deployed smart contracts!"
+      "Please run `yarn hardhat console` to interact with the deployed smart contracts!"
     )
-    log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+    log("----------------------------------")
   }
 }
 export default deployMocks
