@@ -6,6 +6,7 @@ import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "./PriceConverter.sol";
 
 // 3. Interfaces, Libraries, Contracts
+error NotOwner();
 
 /**@title A sample Funding Contract
  * @author Patrick Collins
@@ -27,7 +28,8 @@ contract FundMe {
 
     // Modifiers
     modifier onlyOwner() {
-        require(msg.sender == s_owner);
+        // require(msg.sender == s_owner);
+        if (msg.sender != s_owner) revert NotOwner();
         _;
     }
 
