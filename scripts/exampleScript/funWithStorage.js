@@ -9,7 +9,8 @@ async function main() {
     console.log(response)
     response = await ethers.provider.getStorageAt(fundMe.address, 2)
     console.log(response)
-    console.log(deployer)
+    const mockV3Aggregator = await ethers.getContract("MockV3Aggregator")
+    console.log(mockV3Aggregator.address)
 }
 
 main()
