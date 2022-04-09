@@ -3,7 +3,11 @@ const { ethers, getNamedAccounts } = require("hardhat")
 async function main() {
     const { deployer } = await getNamedAccounts()
     const fundMe = await ethers.getContract("FundMe", deployer)
-    const response = await ethers.provider.getStorageAt(fundMe.address, 0)
+    let response = await ethers.provider.getStorageAt(fundMe.address, 0)
+    console.log(response)
+    response = await ethers.provider.getStorageAt(fundMe.address, 1)
+    console.log(response)
+    response = await ethers.provider.getStorageAt(fundMe.address, 2)
     console.log(response)
     console.log(deployer)
 }
