@@ -17,10 +17,16 @@ contract FunWithStorage {
     uint256 immutable i_not_in_storage;
 
     constructor() {
-        favoriteNumber = 25; // See stored spot above
-        someBool = true; // See stored spot above
-        myArray.push(222);
-        myMap[0] = true;
+        favoriteNumber = 25; // See stored spot above // SSTORE
+        someBool = true; // See stored spot above // SSTORE
+        myArray.push(222); // SSTORE
+        myMap[0] = true; // SSTORE
         i_not_in_storage = 123;
+    }
+
+    function doStuff() public {
+        uint256 newVar = favoriteNumber + 1; // SLOAD
+        bool otherVar = someBool; // SLOAD
+        // ^^ memory variables
     }
 }
