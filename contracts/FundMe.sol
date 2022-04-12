@@ -19,7 +19,7 @@ contract FundMe {
 
     // State variables
     uint256 public constant MINIMUM_USD = 50 * 10**18;
-    address private immutable s_owner;
+    address private immutable i_owner;
     address[] private s_funders;
     mapping(address => uint256) private s_addressToAmountFunded;
     AggregatorV3Interface private s_priceFeed;
@@ -28,8 +28,8 @@ contract FundMe {
 
     // Modifiers
     modifier onlyOwner() {
-        // require(msg.sender == s_owner);
-        if (msg.sender != s_owner) revert FundMe__NotOwner();
+        // require(msg.sender == i_owner);
+        if (msg.sender != i_owner) revert FundMe__NotOwner();
         _;
     }
 
@@ -45,7 +45,7 @@ contract FundMe {
 
     constructor(address priceFeed) {
         s_priceFeed = AggregatorV3Interface(priceFeed);
-        s_owner = msg.sender;
+        i_owner = msg.sender;
     }
 
     /// @notice Funds our contract based on the ETH/USD price
@@ -71,7 +71,7 @@ contract FundMe {
         s_funders = new address[](0);
         // Transfer vs call vs Send
         // payable(msg.sender).transfer(address(this).balance);
-        (bool success, ) = s_owner.call{value: address(this).balance}("");
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
         require(success);
     }
 
@@ -88,7 +88,7 @@ contract FundMe {
         }
         s_funders = new address[](0);
         // payable(msg.sender).transfer(address(this).balance);
-        (bool success, ) = s_owner.call{value: address(this).balance}("");
+        (bool success, ) = i_owner.call{value: address(this).balance}("");
         require(success);
     }
 
@@ -113,7 +113,7 @@ contract FundMe {
     }
 
     function getOwner() public view returns (address) {
-        return s_owner;
+        return i_owner;
     }
 
     function getPriceFeed() public view returns (AggregatorV3Interface) {
