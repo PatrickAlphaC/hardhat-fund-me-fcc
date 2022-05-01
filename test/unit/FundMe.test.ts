@@ -3,7 +3,6 @@ import { assert, expect } from "chai"
 import { network, deployments, ethers } from "hardhat"
 import { developmentChains } from "../../helper-hardhat-config"
 import { FundMe, MockV3Aggregator } from "../../typechain-types"
-import { Deployment } from "hardhat-deploy/dist/types"
 
 describe("FundMe", async () => {
   let fundMe: FundMe
