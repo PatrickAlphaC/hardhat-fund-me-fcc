@@ -1,7 +1,4 @@
-# TODO
 
-1. Figure out if we want to have this one the next project be the "good" code.
-2. Update tests for testnet, either using mocha invert, the "runtests" flag, or the `yarn test` way. 
 
 # Hardhat Fund Me
 
