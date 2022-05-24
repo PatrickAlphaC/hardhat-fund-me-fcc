@@ -4,7 +4,7 @@ import { network, deployments, ethers } from "hardhat"
 import { developmentChains } from "../../helper-hardhat-config"
 import { FundMe, MockV3Aggregator } from "../../typechain-types"
 
-describe("FundMe", async () => {
+describe("FundMe", function () {
   let fundMe: FundMe
   let mockV3Aggregator: MockV3Aggregator
   let deployer: SignerWithAddress
@@ -19,14 +19,14 @@ describe("FundMe", async () => {
     mockV3Aggregator = await ethers.getContract("MockV3Aggregator")
   })
 
-  describe("constructor", () => {
+  describe("constructor", function() {
     it("sets the aggregator addresses correctly", async () => {
       const response = await fundMe.s_priceFeed()
       assert.equal(response, mockV3Aggregator.address)
     })
   })
 
-  describe("fund", () => {
+  describe("fund", function() {
     // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
     // could also do assert.fail
     it("Fails if you don't send enough ETH", async () => {
@@ -47,7 +47,7 @@ describe("FundMe", async () => {
       assert.equal(response, deployer.address)
     })
   })
-  describe("withdraw", () => {
+  describe("withdraw", function() {
     beforeEach(async () => {
       await fundMe.fund({ value: ethers.utils.parseEther("1") })
     })
