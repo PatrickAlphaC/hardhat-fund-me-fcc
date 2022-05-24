@@ -2,7 +2,7 @@ const { assert, expect } = require("chai")
 const { network, deployments, ethers } = require("hardhat")
 const { developmentChains } = require("../../helper-hardhat-config")
 
-describe("FundMe", async () => {
+describe("FundMe", function () {
     let fundMe
     let mockV3Aggregator
     let deployer
@@ -19,14 +19,14 @@ describe("FundMe", async () => {
         )
     })
 
-    describe("constructor", () => {
+    describe("constructor", function () {
         it("sets the aggregator addresses correctly", async () => {
             const response = await fundMe.getPriceFeed()
             assert.equal(response, mockV3Aggregator.address)
         })
     })
 
-    describe("fund", () => {
+    describe("fund", function () {
         // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
         // could also do assert.fail
         it("Fails if you don't send enough ETH", async () => {
@@ -47,7 +47,7 @@ describe("FundMe", async () => {
             assert.equal(response, deployer)
         })
     })
-    describe("withdraw", () => {
+    describe("withdraw", function () {
         beforeEach(async () => {
             await fundMe.fund({ value: sendValue })
         })
