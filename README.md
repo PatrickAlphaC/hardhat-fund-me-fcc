@@ -58,7 +58,6 @@ If you want to get to typescript and you cloned the javascript version, just run
 git checkout typescript
 ```
 
-
 # Useage
 
 Deploy:
@@ -105,12 +104,12 @@ yarn hardhat deploy --network kovan
 After deploy to a testnet or local net, you can run the scripts. 
 
 ```
-yarn hardhat run scripts/fund.js
+yarn hardhat run scripts/fund.ts
 ```
 
 or
 ```
-yarn hardhat run scripts/withdraw.js
+yarn hardhat run scripts/withdraw.ts
 ```
 
 ## Estimate gas
@@ -127,7 +126,7 @@ And you'll see and output file called `gas-report.txt`
 
 To get a USD estimation of gas cost, you'll need a `COINMARKETCAP_API_KEY` environment variable. You can get one for free from [CoinMarketCap](https://pro.coinmarketcap.com/signup). 
 
-Then, uncomment the line `coinmarketcap: COINMARKETCAP_API_KEY,` in `hardhat.config.js` to get the USD estimation. Just note, everytime you run your tests it will use an API call, so it might make sense to have using coinmarketcap disabled until you need it. You can disable it by just commenting the line back out. 
+Then, uncomment the line `coinmarketcap: COINMARKETCAP_API_KEY,` in `hardhat.config.ts` to get the USD estimation. Just note, everytime you run your tests it will use an API call, so it might make sense to have using coinmarketcap disabled until you need it. You can disable it by just commenting the line back out. 
 
 
 ## Verify on etherscan
@@ -139,7 +138,7 @@ In it's current state, if you have your api key set, it will auto verify kovan c
 However, you can manual verify with:
 
 ```
-yarn hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
+yarn hardhat verify --constructor-args arguments DEPLOYED_CONTRACT_ADDRESS
 ```
 
 ### Typescript differences
