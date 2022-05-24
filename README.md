@@ -1,5 +1,3 @@
-
-
 # Hardhat Fund Me
 
 This is a section of the Javascript Blockchain/Smart Contract FreeCodeCamp Course.
@@ -8,12 +6,12 @@ Video Coming soon...
 
 [Full Repo](https://github.com/smartcontractkit/full-blockchain-solidity-course-js)
 
-- [TODO](#todo)
 - [Hardhat Fund Me](#hardhat-fund-me)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
   - [Quickstart](#quickstart)
   - [Typescript](#typescript)
+    - [Optional Gitpod](#optional-gitpod)
 - [Usage](#usage)
   - [Testing](#testing)
     - [Test Coverage](#test-coverage)
@@ -60,6 +58,11 @@ For the typescript edition, run:
 git checkout typescript
 ```
 
+### Optional Gitpod
+
+If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
+
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/hardhat-fund-me-fcc)
 
 # Usage
 
