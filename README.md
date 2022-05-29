@@ -2,7 +2,7 @@
 
 This is a section of the Javascript Blockchain/Smart Contract FreeCodeCamp Course.
 
-Video Coming soon...
+*[⌨️ (10:00:48) Lesson 7: Hardhat Fund Me](https://www.youtube.com/watch?v=gyMwXuJrbJQ&t=36048s)*
 
 [Full Repo](https://github.com/smartcontractkit/full-blockchain-solidity-course-js)
 
