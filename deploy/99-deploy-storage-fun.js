@@ -15,6 +15,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
         // we need to wait if on a live network so we can verify properly
         waitConfirmations: network.config.blockConfirmations || 1,
     })
+
     log("Logging storage...")
     for (let i = 0; i < 10; i++) {
         log(
@@ -24,6 +25,26 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
             )}`
         )
     }
+
+    // You can use this to trace!
+    // const trace = await network.provider.send("debug_traceTransaction", [
+    //     funWithStorage.transactionHash,
+    // ])
+    // console.log(trace.structLogs)
+    // for (structLog in trace.structLogs) {
+    //     if (structLog.op == "SSTORE") {
+    //         console.log(structLog)
+    //     }
+    // }
+
+    // const firstelementLocation = ethers.utils.keccak256(
+    //     "0x0000000000000000000000000000000000000000000000000000000000000002"
+    // )
+    // const arrayElement = await ethers.provider.getStorageAt(
+    //     funWithStorage.address,
+    //     firstelementLocation
+    // )
+    // log(`Location ${firstelementLocation}: ${arrayElement}`)
 
     // Can you write a function that finds the storage slot of the arrays and mappings?
     // And then find the data in those slots?
