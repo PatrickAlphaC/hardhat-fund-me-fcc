@@ -30,13 +30,11 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     // const trace = await network.provider.send("debug_traceTransaction", [
     //     funWithStorage.transactionHash,
     // ])
-    // console.log(trace.structLogs)
     // for (structLog in trace.structLogs) {
-    //     if (structLog.op == "SSTORE") {
-    //         console.log(structLog)
+    //     if (trace.structLogs[structLog].op == "SSTORE") {
+    //         console.log(trace.structLogs[structLog])
     //     }
     // }
-
     // const firstelementLocation = ethers.utils.keccak256(
     //     "0x0000000000000000000000000000000000000000000000000000000000000002"
     // )
