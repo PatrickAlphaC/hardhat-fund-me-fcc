@@ -1,22 +1,24 @@
-const { assert, expect } = require("chai")
-const { network, deployments, ethers } = require("hardhat")
+const { assert } = require("chai")
+const { network, ethers, getNamedAccounts } = require("hardhat")
 const { developmentChains } = require("../../helper-hardhat-config")
 
-describe("FundMe", function () {
-    let fundMe
-    let deployer
-    const sendValue = ethers.utils.parseEther("0.777")
-    beforeEach(async () => {
-        // if (!developmentChains.includes(network.name)) {
-        //   throw "You need to be on a development chain to run tests"
-        //
-        accounts = await ethers.getSigners()
-        deployer = accounts[0]
-        await deployments.fixture(["fundMe"])
-        fundMe = await ethers.getContract("FundMe", deployer)
-        mockV3Aggregator = await ethers.getContract(
-            "MockV3Aggregator",
-            deployer
-        )
-    })
-})
+developmentChains.includes(network.name)
+    ? describe.skip
+    : describe("FundMe Staging Tests", async function () {
+          let deployer
+          let fundMe
+          const sendValue = ethers.utils.parseEther("0.03")
+          beforeEach(async () => {
+              deployer = (await getNamedAccounts()).deployer
+              fundMe = await ethers.getContract("FundMe", deployer)
+          })
+
+          it("allows people to fund and withdraw", async function () {
+              await fundMe.fund({ value: sendValue })
+              await fundMe.withdraw()
+              const endingFundMeBalance = await fundMe.provider.getBalance(
+                  fundMe.address
+              )
+              assert.equal(endingFundMeBalance.toString(), "0")
+          })
+      })
