@@ -1,8 +1,13 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers"
 import { assert, expect } from "chai"
-import { network, deployments, ethers } from "hardhat"
+import { network, ethers } from "hardhat"
 import { developmentChains } from "../../helper-hardhat-config"
-import { FundMe, MockV3Aggregator } from "../../typechain-types"
+import {
+  FundMe,
+  FundMe__factory,
+  MockV3Aggregator,
+  MockV3Aggregator__factory,
+} from "../../typechain-types"
 
 describe("FundMe", function () {
   let fundMe: FundMe
@@ -14,19 +19,37 @@ describe("FundMe", function () {
     }
     const accounts = await ethers.getSigners()
     deployer = accounts[0]
-    await deployments.fixture(["all"])
-    fundMe = await ethers.getContract("FundMe")
-    mockV3Aggregator = await ethers.getContract("MockV3Aggregator")
+
+    //MockV3Aggregator arguments
+    const DECIMALS = "18"
+    const INITIAL_PRICE = "2000000000000000000000" // 2000
+
+    //Deploying MockV3Aggregator Contract
+    const mockV3AggregatorFactory = (await ethers.getContractFactory(
+      "MockV3Aggregator",
+      deployer
+    )) as MockV3Aggregator__factory
+    mockV3Aggregator = (await mockV3AggregatorFactory.deploy(
+      DECIMALS,
+      INITIAL_PRICE
+    )) as MockV3Aggregator
+
+    //Deploying FundMe Contract
+    const fundMeFactory = (await ethers.getContractFactory(
+      "FundMe",
+      deployer
+    )) as FundMe__factory
+    fundMe = (await fundMeFactory.deploy(mockV3Aggregator.address)) as FundMe
   })
 
-  describe("constructor", function() {
+  describe("constructor", function () {
     it("sets the aggregator addresses correctly", async () => {
       const response = await fundMe.s_priceFeed()
       assert.equal(response, mockV3Aggregator.address)
     })
   })
 
-  describe("fund", function() {
+  describe("fund", function () {
     // https://ethereum-waffle.readthedocs.io/en/latest/matchers.html
     // could also do assert.fail
     it("Fails if you don't send enough ETH", async () => {
@@ -47,7 +70,7 @@ describe("FundMe", function () {
       assert.equal(response, deployer.address)
     })
   })
-  describe("withdraw", function() {
+  describe("withdraw", function () {
     beforeEach(async () => {
       await fundMe.fund({ value: ethers.utils.parseEther("1") })
     })
