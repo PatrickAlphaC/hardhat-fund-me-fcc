@@ -6,9 +6,8 @@ const INITIAL_PRICE = "2000000000000000000000" // 2000
 const deployMocks: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
 ) {
-  const { network } = hre
-  const accounts = await ethers.getSigners()
-  const deployer = accounts[0]
+  const { network, getNamedAccounts } = hre
+  const { deployer } = await getNamedAccounts()
 
   const chainId = network.config.chainId
   // If we are on a local development network, we need to deploy mocks!

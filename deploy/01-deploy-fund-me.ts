@@ -9,9 +9,8 @@ const deployFundMe: DeployFunction = async function (
   hre: HardhatRuntimeEnvironment
 ) {
   // @ts-ignore
-  const { network } = hre
-  const accounts = await ethers.getSigners()
-  const deployer = accounts[0]
+  const { network, getNamedAccounts } = hre
+  const { deployer } = await getNamedAccounts()
   const chainId: number = network.config.chainId!
 
   let ethUsdPriceFeedAddress: string
