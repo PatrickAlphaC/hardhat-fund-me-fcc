@@ -8,7 +8,8 @@ const deployMocks: DeployFunction = async function (
 ) {
   const { network } = hre
   const accounts = await ethers.getSigners()
-  const { deployer } = accounts[0]
+  const deployer = accounts[0]
+
   const chainId = network.config.chainId
   // If we are on a local development network, we need to deploy mocks!
   if (chainId == 31337) {
