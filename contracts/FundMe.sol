@@ -59,7 +59,7 @@ contract FundMe {
         s_funders.push(msg.sender);
     }
 
-    function withdraw() public payable onlyOwner {
+    function withdraw() public onlyOwner {
         for (
             uint256 funderIndex = 0;
             funderIndex < s_funders.length;
@@ -75,7 +75,7 @@ contract FundMe {
         require(success);
     }
 
-    function cheaperWithdraw() public payable onlyOwner {
+    function cheaperWithdraw() public onlyOwner {
         address[] memory funders = s_funders;
         // mappings can't be in memory, sorry!
         for (
