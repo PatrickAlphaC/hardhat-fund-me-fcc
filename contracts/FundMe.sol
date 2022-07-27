@@ -37,7 +37,7 @@ contract FundMe {
     _;
   }
 
-  function withdraw() public payable onlyOwner {
+  function withdraw() public onlyOwner {
     payable(msg.sender).transfer(address(this).balance);
     for (
       uint256 funderIndex = 0;
@@ -50,7 +50,7 @@ contract FundMe {
     s_funders = new address[](0);
   }
 
-  function cheaperWithdraw() public payable onlyOwner {
+  function cheaperWithdraw() public onlyOwner {
     payable(msg.sender).transfer(address(this).balance);
     address[] memory funders = s_funders;
     // mappings can't be in memory, sorry!
