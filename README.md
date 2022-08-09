@@ -85,7 +85,7 @@ yarn hardhat coverage
 
 # Deployment to a testnet or mainnet
 
-1. Setup environment variabltes
+1. Setup environment variables
 
 You'll want to set your `KOVAN_RPC_URL` and `PRIVATE_KEY` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
 
