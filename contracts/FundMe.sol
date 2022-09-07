@@ -55,8 +55,10 @@ contract FundMe {
             "You need to spend more ETH!"
         );
         // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
+        if (s_addressToAmountFunded[msg.sender] == 0) {
+            s_funders.push(msg.sender);
+        }
         s_addressToAmountFunded[msg.sender] += msg.value;
-        s_funders.push(msg.sender);
     }
 
     function withdraw() public onlyOwner {
