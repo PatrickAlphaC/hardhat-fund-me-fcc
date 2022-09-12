@@ -7,6 +7,8 @@ import "./PriceConverter.sol";
 
 // 3. Interfaces, Libraries, Contracts
 error FundMe__NotOwner();
+error FundMe__YouNeedToSpendMoreETH();
+error FundMe__TransferFailed();
 
 /**@title A sample Funding Contract
  * @author Patrick Collins
@@ -33,6 +35,16 @@ contract FundMe {
         _;
     }
 
+    modifier minimumAmount() {
+        // require(
+        //     msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
+        //     "You need to spend more ETH!"
+        // );
+        if (msg.value.getConversionRate(s_priceFeed) < MINIMUM_USD)
+            revert FundMe__YouNeedToSpendMoreETH();
+        _;
+    }
+
     // Functions Order:
     //// constructor
     //// receive
@@ -49,20 +61,15 @@ contract FundMe {
     }
 
     /// @notice Funds our contract based on the ETH/USD price
-    function fund() public payable {
-        require(
-            msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
-            "You need to spend more ETH!"
-        );
-        // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
+    function fund() public payable minimumAmount {
         s_addressToAmountFunded[msg.sender] += msg.value;
         s_funders.push(msg.sender);
     }
 
     function withdraw() public onlyOwner {
         for (
-            uint256 funderIndex = 0;
-            funderIndex < s_funders.length;
+            uint256 funderIndex = 0; 
+            funderIndex < s_funders.length; 
             funderIndex++
         ) {
             address funder = s_funders[funderIndex];
@@ -72,7 +79,9 @@ contract FundMe {
         // Transfer vs call vs Send
         // payable(msg.sender).transfer(address(this).balance);
         (bool success, ) = i_owner.call{value: address(this).balance}("");
-        require(success);
+        if (!success) {
+            revert FundMe__TransferFailed();
+        }
     }
 
     function cheaperWithdraw() public onlyOwner {
@@ -80,7 +89,7 @@ contract FundMe {
         // mappings can't be in memory, sorry!
         for (
             uint256 funderIndex = 0;
-            funderIndex < funders.length;
+            funderIndex < funders.length; 
             funderIndex++
         ) {
             address funder = funders[funderIndex];
@@ -89,7 +98,9 @@ contract FundMe {
         s_funders = new address[](0);
         // payable(msg.sender).transfer(address(this).balance);
         (bool success, ) = i_owner.call{value: address(this).balance}("");
-        require(success);
+        if (!success) {
+            revert FundMe__TransferFailed();
+        }
     }
 
     /** @notice Gets the amount that an address has funded
@@ -97,9 +108,9 @@ contract FundMe {
      *  @return the amount funded
      */
     function getAddressToAmountFunded(address fundingAddress)
-        public
-        view
-        returns (uint256)
+        public 
+        view 
+        returns (uint256) 
     {
         return s_addressToAmountFunded[fundingAddress];
     }
@@ -120,3 +131,4 @@ contract FundMe {
         return s_priceFeed;
     }
 }
+
