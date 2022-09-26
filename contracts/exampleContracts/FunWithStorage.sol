@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.8;
+pragma solidity ^0.8.7;
 
 contract FunWithStorage {
     uint256 favoriteNumber; // Stored at slot 0
