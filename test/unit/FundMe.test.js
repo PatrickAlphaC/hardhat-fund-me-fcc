@@ -33,7 +33,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
               // could also do assert.fail
               it("Fails if you don't send enough ETH", async () => {
                   await expect(fundMe.fund()).to.be.revertedWith(
-                      "You need to spend more ETH!"
+                      "FundMe__NeedMoreETHSent"
                   )
               })
               // we could be even more precise here by making sure exactly $50 works
