@@ -149,6 +149,8 @@ yarn hardhat verify --constructor-args arguments.js DEPLOYED_CONTRACT_ADDRESS
 
 # Linting
 
+Install solhint globally [Docs](https://protofire.github.io/solhint/#installation)
+
 To check linting / code formatting:
 ```
 yarn lint
