@@ -15,9 +15,9 @@ import { HardhatUserConfig } from "hardhat/config"
  */
 
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || ""
-const KOVAN_RPC_URL =
-  process.env.KOVAN_RPC_URL ||
-  "https://eth-mainnet.alchemyapi.io/v2/your-api-key"
+const SEPOLIA_RPC_URL =
+  process.env.SEPOLIA_RPC_URL ||
+  "https://eth-sepolia.g.alchemy.com/v2/YOUR-API-KEY"
 const PRIVATE_KEY =
   process.env.PRIVATE_KEY ||
   "0x11ee3108a03081fe260ecdc106554d09d9d1209bcafd46942b10e02943effc4a"
@@ -30,10 +30,10 @@ const config: HardhatUserConfig = {
       chainId: 31337,
       // gasPrice: 130000000000,
     },
-    kovan: {
-      url: KOVAN_RPC_URL,
+    sepolia: {
+      url: SEPOLIA_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId: 42,
+      chainId: 11155111,
     },
   },
   solidity: {

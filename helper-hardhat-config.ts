@@ -10,10 +10,10 @@ export interface networkConfigInfo {
 export const networkConfig: networkConfigInfo = {
   localhost: {},
   hardhat: {},
-  // Price Feed Address, values can be obtained at https://docs.chain.link/docs/reference-contracts
-  // Default one is ETH/USD contract on Kovan
-  kovan: {
-    ethUsdPriceFeed: "0x9326BFA02ADD2366b30bacB125260Af641031331",
+  // Price Feed Address, values can be obtained at https://docs.chain.link/data-feeds/price-feeds/addresses
+  // Default one is ETH/USD contract on Sepolia
+  sepolia: {
+    ethUsdPriceFeed: "0x694AA1769357215DE4FAC081bf1f309aDC325306",
     blockConfirmations: 6,
   },
 }
