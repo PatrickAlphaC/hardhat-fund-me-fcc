@@ -123,7 +123,7 @@ const { developmentChains } = require("../../helper-hardhat-config")
                       endingDeployerBalance.add(withdrawGasCost).toString()
                   )
                   // Make a getter for storage variables
-                  await expect(fundMe.getFunder(0)).to.be.reverted
+                  await expect(fundMe.getFunder({ value: 0 })).to.be.reverted
 
                   for (i = 1; i < 6; i++) {
                       assert.equal(
