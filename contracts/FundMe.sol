@@ -59,7 +59,7 @@ contract FundMe {
         s_funders.push(msg.sender);
     }
 
-    function withdraw() public onlyOwner {
+    function withdraw() public onlyOwner returns(bool){
         for (
             uint256 funderIndex = 0;
             funderIndex < s_funders.length;
