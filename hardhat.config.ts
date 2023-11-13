@@ -1,12 +1,15 @@
+import { HardhatUserConfig } from "hardhat/config"
+
+import "@nomicfoundation/hardhat-toolbox"
+import "@nomicfoundation/hardhat-verify"
+import "@nomicfoundation/hardhat-ethers"
+import "@nomiclabs/hardhat-solhint"
 import "@typechain/hardhat"
-import "@nomiclabs/hardhat-waffle"
-import "@nomiclabs/hardhat-etherscan"
-import "@nomiclabs/hardhat-ethers"
-import "hardhat-gas-reporter"
 import "dotenv/config"
 import "hardhat-deploy"
+import "hardhat-deploy-ethers"
+import "hardhat-gas-reporter"
 import "solidity-coverage"
-import { HardhatUserConfig } from "hardhat/config"
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
@@ -29,6 +32,11 @@ const config: HardhatUserConfig = {
     hardhat: {
       chainId: 31337,
       // gasPrice: 130000000000,
+    },
+
+    localhost: {
+      chainId: 31337,
+      url: "http://127.0.0.1:8545/",
     },
     sepolia: {
       url: SEPOLIA_RPC_URL,
