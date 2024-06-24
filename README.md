@@ -68,13 +68,21 @@ If you can't or don't want to run and install locally, you can work with this re
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/hardhat-fund-me-fcc)
 
+# Installing Hardhat Deploy
+
+To install hardhat deploy run the command:
+```
+npm install --save-dev  @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
+```
+[hardhat-deploy repo](https://github.com/wighawag/hardhat-deploy#installation)
+
 # Usage
 
 Deploy:
-
 ```
 yarn hardhat deploy
 ```
+
 
 ## Testing
 
